@@ -4,17 +4,16 @@ import java.util.Scanner;
 
 class Processor extends Thread {
 	
-	private boolean running = true;
+	private volatile boolean running = true;
 	
 	public void run() {
 		
-		while(true) {
+		while(running) {
 			System.out.println("Hello");
 			
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
