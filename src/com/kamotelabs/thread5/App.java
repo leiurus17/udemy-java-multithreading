@@ -3,6 +3,10 @@ package com.kamotelabs.thread5;
 public class App {
 
 	private int count = 0;
+	
+	public void increment() {
+		count++;
+	}
 
 	public static void main(String[] args) {
 		App app = new App();
@@ -16,7 +20,7 @@ public class App {
 			public void run() {
 
 				for (int i = 0; i < 10000; i++) {
-					count++;
+					increment();
 				}
 			}
 		});
@@ -26,7 +30,7 @@ public class App {
 			public void run() {
 
 				for (int i = 0; i < 10000; i++) {
-					count++;
+					increment();
 				}
 			}
 		});
