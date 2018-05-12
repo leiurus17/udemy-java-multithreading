@@ -6,13 +6,37 @@ import java.util.concurrent.BlockingQueue;
 
 public class App {
 
-	private BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+	private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
+		Thread t1 = new Thread(new Runnable() {
+			public void run() {
+				try {
+					producer();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
+		Thread t2 = new Thread(new Runnable() {
+			public void run() {
+				try {
+					consumer();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		t1.start();
+		t2.start();
+		
+		t1.join();
+		t2.join();
 	}
 	
-	private void producer() throws InterruptedException {
+	private static void producer() throws InterruptedException {
 		Random random = new Random();
 		
 		while(true) {
@@ -20,7 +44,7 @@ public class App {
 		}
 	}
 	
-	private void consumer() throws InterruptedException {
+	private static void consumer() throws InterruptedException {
 		Random random = new Random();
 		
 		while(true) {
